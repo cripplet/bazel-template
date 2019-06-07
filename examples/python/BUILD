@@ -2,7 +2,7 @@ py_library(
     name = "app_library",
     srcs = ["app_library.py"],
     deps = [
-        "//third_party/py/requests:requests",
+        "@requests",
     ],
 )
 

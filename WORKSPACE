@@ -1,4 +1,4 @@
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # proto_library, cc_proto_library, and java_proto_library rules implicitly
@@ -50,23 +50,16 @@ load("@com_github_bazelbuild_buildtools//buildifier:deps.bzl", "buildifier_depen
 
 buildifier_dependencies()
 
-# Python build rules -- while Bazel officially supports Python now, it doesn't
-# manage pip dependencies, which is a pain. Let's allow requirements.txt Python
-# annotations.
-git_repository(
-    name = "io_bazel_rules_python",
-    branch = "master",  # HEAD
-    remote = "https://github.com/bazelbuild/rules_python.git",
+# Python requests library
+new_git_repository(
+    name = "requests",
+    build_file_content = """
+py_library(
+    name = "requests",
+    srcs = glob(["requests/*.py"]),
+    visibility = ["//visibility:public"]
 )
-
-load("@io_bazel_rules_python//python:pip.bzl", "pip_import")
-
-# Python package imports
-pip_import(
-   name = "requests",
-   requirements = "//third_party/py/requests:requirements.txt",
+""",
+    commit = "aeda65bbe57ac5edbcc2d80db85d010befb7d419",  # v2.22.0
+    remote = "https://github.com/kennethreitz/requests.git",
 )
-
-load("@requests//:requirements.bzl", "pip_install")
-
-pip_install()

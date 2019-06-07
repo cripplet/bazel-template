@@ -4,10 +4,10 @@ licenses(["notice"])
 
 py_library(
     name = "requests",
-   deps = [
+    visibility = ["//visibility:public"],
+    deps = [
         requirement("requests"),
         requirement("certifi"),
         requirement("idna"),
     ],
-    visibility = ["//visibility:public"],
 )
