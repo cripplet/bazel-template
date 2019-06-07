@@ -8,13 +8,13 @@ load(
 go_library(
     name = "app_library",
     srcs = ["app_library.go"],
-    importpath = "github.com/cripplet/bazel-template/examples/golang",
+    importpath = "github.com/cripplet/bazel-template/srcs/examples/golang",
 )
 
 go_test(
     name = "app_test",
     srcs = ["app_test.go"],
-    importpath = "github.com/cripplet/bazel-template/examples/golang",
+    importpath = "github.com/cripplet/bazel-template/srcs/examples/golang",
     deps = [
         ":app_library",
     ],
@@ -23,7 +23,7 @@ go_test(
 go_binary(
     name = "app_binary",
     srcs = ["app_binary.go"],
-    importpath = "github.com/cripplet/bazel-template/examples/golang",
+    importpath = "github.com/cripplet/bazel-template/srcs/examples/golang",
     deps = [
         ":app_library",
     ],
